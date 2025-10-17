@@ -1,0 +1,144 @@
+{
+  "info": {
+    "_postman_id": "08d8ef41-28af-4f57-88d4-5d4308407d2d",
+    "name": "Feature Flags API",
+    "description": "A Postman collection for managing feature flags with the Flask API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "List Feature Flags",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseURL}}/featureflags",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "featureflags"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Feature Flag",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"new_feature\",\n    \"enabled\": false,\n    \"description\": \"A new test feature\"\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/featureflags",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "featureflags"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Feature Flag by ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseURL}}/featureflags/{{flag_id}}",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "featureflags",
+            "{{flag_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Enable Feature Flag",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": "json"
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/featureflags/beta_dashboard/enable",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "featureflags",
+            "beta_dashboard",
+            "enable"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Disable Feature Flag",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseURL}}/featureflags/{{flag_id}}/disable",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "featureflags",
+            "{{flag_id}}",
+            "disable"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Feature Flag",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseURL}}/featureflags/{{flag_id}}",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "featureflags",
+            "{{flag_id}}"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "flag_id",
+      "value": "beta_dashboard"
+    },
+    {
+      "key": "baseURL",
+      "value": ""
+    }
+  ]
+}

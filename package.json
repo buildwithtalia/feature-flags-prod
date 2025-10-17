@@ -1,0 +1,13 @@
+{
+  "name": "feature-flags-api-server",
+  "version": "1.0.0",
+  "description": "Backend server for Feature Flag API (in-memory)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
+  }
+}

@@ -67,6 +67,7 @@ def delete_feature_flag(flag_id):
 @app.route('/featureflags/<flag_id>/enable', methods=['POST'])
 def enable_feature_flag(flag_id):
     flag = get_flag(flag_id)
+    
     if not flag:
         abort(404, description="Feature flag not found")
     flag['enabled'] = True
