@@ -1,5 +1,6 @@
 {
   "info": {
+    "_postman_id": "159ae916-15fe-47bc-a4ae-788647cfc60a",
     "name": "Feature Flags API",
     "description": "A comprehensive collection for managing feature flags with CRUD operations, enabling/disabling flags, and querying enabled flags.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -18,7 +19,15 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{base_url}}/featureflags",
+            "url": {
+              "raw": "{{base_url}}/featureflags",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags"
+              ]
+            },
             "description": "Retrieve all feature flags in the system"
           },
           "response": [
@@ -32,12 +41,20 @@
                     "value": "application/json"
                   }
                 ],
-                "url": "{{base_url}}/featureflags"
+                "url": {
+                  "raw": "{{base_url}}/featureflags",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "[\n  {\n    \"id\": \"beta_dashboard\",\n    \"enabled\": true,\n    \"description\": \"Enable access to the new dashboard\"\n  },\n  {\n    \"id\": \"live_chat\",\n    \"enabled\": false,\n    \"description\": \"Enable live chat support for users\"\n  }\n]"
             }
           ]
@@ -56,7 +73,15 @@
               "mode": "raw",
               "raw": "{\n  \"id\": \"new_feature\",\n  \"enabled\": false,\n  \"description\": \"Description of the new feature\"\n}"
             },
-            "url": "{{base_url}}/featureflags",
+            "url": {
+              "raw": "{{base_url}}/featureflags",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags"
+              ]
+            },
             "description": "Create a new feature flag"
           },
           "response": [
@@ -74,12 +99,20 @@
                   "mode": "raw",
                   "raw": "{\n  \"id\": \"new_feature\",\n  \"enabled\": false,\n  \"description\": \"Description of the new feature\"\n}"
                 },
-                "url": "{{base_url}}/featureflags"
+                "url": {
+                  "raw": "{{base_url}}/featureflags",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags"
+                  ]
+                }
               },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "{\n  \"id\": \"new_feature\",\n  \"enabled\": false,\n  \"description\": \"Description of the new feature\"\n}"
             },
             {
@@ -96,12 +129,20 @@
                   "mode": "raw",
                   "raw": "{\n  \"id\": \"incomplete_flag\"\n}"
                 },
-                "url": "{{base_url}}/featureflags"
+                "url": {
+                  "raw": "{{base_url}}/featureflags",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags"
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "{\n  \"error\": \"Missing required fields: id, enabled, description\"\n}"
             }
           ]
@@ -116,7 +157,16 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{base_url}}/featureflags/{{flag_id}}",
+            "url": {
+              "raw": "{{base_url}}/featureflags/{{flag_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags",
+                "{{flag_id}}"
+              ]
+            },
             "description": "Get a specific feature flag by its ID"
           },
           "response": [
@@ -130,12 +180,21 @@
                     "value": "application/json"
                   }
                 ],
-                "url": "{{base_url}}/featureflags/beta_dashboard"
+                "url": {
+                  "raw": "{{base_url}}/featureflags/beta_dashboard",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags",
+                    "beta_dashboard"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "{\n  \"id\": \"beta_dashboard\",\n  \"enabled\": true,\n  \"description\": \"Enable access to the new dashboard\"\n}"
             },
             {
@@ -148,12 +207,21 @@
                     "value": "application/json"
                   }
                 ],
-                "url": "{{base_url}}/featureflags/nonexistent_flag"
+                "url": {
+                  "raw": "{{base_url}}/featureflags/nonexistent_flag",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags",
+                    "nonexistent_flag"
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "{\n  \"error\": \"Feature flag not found\"\n}"
             }
           ]
@@ -168,7 +236,16 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{base_url}}/featureflags/{{flag_id}}",
+            "url": {
+              "raw": "{{base_url}}/featureflags/{{flag_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags",
+                "{{flag_id}}"
+              ]
+            },
             "description": "Delete a feature flag by its ID"
           },
           "response": [
@@ -182,13 +259,72 @@
                     "value": "application/json"
                   }
                 ],
-                "url": "{{base_url}}/featureflags/beta_dashboard"
+                "url": {
+                  "raw": "{{base_url}}/featureflags/beta_dashboard",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags",
+                    "beta_dashboard"
+                  ]
+                }
               },
               "status": "No Content",
               "code": 204,
               "_postman_previewlanguage": "text",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update Feature Flag",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/featureflags",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags"
+              ]
+            },
+            "description": "Retrieve all feature flags in the system"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/featureflags",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "body": "[\n  {\n    \"id\": \"beta_dashboard\",\n    \"enabled\": true,\n    \"description\": \"Enable access to the new dashboard\"\n  },\n  {\n    \"id\": \"live_chat\",\n    \"enabled\": false,\n    \"description\": \"Enable live chat support for users\"\n  }\n]"
             }
           ]
         }
@@ -207,7 +343,17 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{base_url}}/featureflags/{{flag_id}}/enable",
+            "url": {
+              "raw": "{{base_url}}/featureflags/{{flag_id}}/enable",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags",
+                "{{flag_id}}",
+                "enable"
+              ]
+            },
             "description": "Enable a specific feature flag"
           },
           "response": [
@@ -221,12 +367,22 @@
                     "value": "application/json"
                   }
                 ],
-                "url": "{{base_url}}/featureflags/live_chat/enable"
+                "url": {
+                  "raw": "{{base_url}}/featureflags/live_chat/enable",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags",
+                    "live_chat",
+                    "enable"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "{\n  \"id\": \"live_chat\",\n  \"enabled\": true,\n  \"description\": \"Enable live chat support for users\"\n}"
             }
           ]
@@ -241,7 +397,17 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{base_url}}/featureflags/{{flag_id}}/disable",
+            "url": {
+              "raw": "{{base_url}}/featureflags/{{flag_id}}/disable",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags",
+                "{{flag_id}}",
+                "disable"
+              ]
+            },
             "description": "Disable a specific feature flag"
           },
           "response": [
@@ -255,12 +421,22 @@
                     "value": "application/json"
                   }
                 ],
-                "url": "{{base_url}}/featureflags/beta_dashboard/disable"
+                "url": {
+                  "raw": "{{base_url}}/featureflags/beta_dashboard/disable",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags",
+                    "beta_dashboard",
+                    "disable"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "{\n  \"id\": \"beta_dashboard\",\n  \"enabled\": false,\n  \"description\": \"Enable access to the new dashboard\"\n}"
             }
           ]
@@ -275,7 +451,16 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{base_url}}/featureflags/enabled",
+            "url": {
+              "raw": "{{base_url}}/featureflags/enabled",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags",
+                "enabled"
+              ]
+            },
             "description": "Get all currently enabled feature flags"
           },
           "response": [
@@ -289,12 +474,21 @@
                     "value": "application/json"
                   }
                 ],
-                "url": "{{base_url}}/featureflags/enabled"
+                "url": {
+                  "raw": "{{base_url}}/featureflags/enabled",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags",
+                    "enabled"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "cookie": [],
+              "_postman_previewtype": "html",
               "body": "[\n  {\n    \"id\": \"beta_dashboard\",\n    \"enabled\": true,\n    \"description\": \"Enable access to the new dashboard\"\n  }\n]"
             }
           ]
