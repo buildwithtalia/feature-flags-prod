@@ -52,7 +52,7 @@ def create_feature_flag():
 def delete_feature_flag(flag_id):
     flag = get_flag(flag_id)
     if not flag:
-        abort(404)
+        return jsonify({"error": "Feature flag not found"}), 404
     # Delete using the correct key type
     try:
         int_id = int(flag_id)
@@ -69,7 +69,7 @@ def enable_feature_flag(flag_id):
     flag = get_flag(flag_id)
     
     if not flag:
-        abort(404, description="Feature flag not found")
+        return jsonify({"error": "Feature flag not found"}), 404
     flag['enabled'] = True
     return jsonify(flag), 200
 
@@ -77,7 +77,7 @@ def enable_feature_flag(flag_id):
 def disable_feature_flag(flag_id):
     flag = get_flag(flag_id)
     if not flag:
-        abort(404, description="Feature flag not found")
+        return jsonify({"error": "Feature flag not found"}), 404
     flag['enabled'] = False
     return jsonify(flag), 200
 
@@ -85,7 +85,7 @@ def disable_feature_flag(flag_id):
 def get_feature_flag_by_id(flag_id):
     flag = get_flag(flag_id)
     if not flag:
-        abort(404)
+        return jsonify({"error": "Feature flag not found"}), 404
     return jsonify(flag), 200
 
 if __name__ == '__main__':
