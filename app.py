@@ -73,6 +73,13 @@ def enable_feature_flag(flag_id):
     flag['enabled'] = True
     return jsonify(flag), 200
 
+@app.route('/featureflags/enabled', methods=['GET'])
+def get_enabled_feature_flags():
+    """Get all enabled feature flags"""
+    enabled_flags = [flag for flag in feature_flags.values() if flag.get('enabled', False)]
+    return jsonify(enabled_flags), 200
+
+
 @app.route('/featureflags/<flag_id>/disable', methods=['POST'])
 def disable_feature_flag(flag_id):
     flag = get_flag(flag_id)
