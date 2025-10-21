@@ -4,8 +4,7 @@
   },
   "entities": {
     "collections": [
-      "./collections/Feature Flags API.postman_collection.json",
-      "collections/New Collection.postman_collection.json"
+      "./collections/Feature Flags API.postman_collection.json"
     ],
     "environments": [],
     "specs": [],
