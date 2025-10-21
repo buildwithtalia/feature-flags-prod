@@ -1,0 +1,317 @@
+{
+  "info": {
+    "name": "Feature Flags API",
+    "description": "A comprehensive collection for managing feature flags with CRUD operations, enabling/disabling flags, and querying enabled flags.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Feature Flag Management",
+      "item": [
+        {
+          "name": "Get All Feature Flags",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/featureflags",
+            "description": "Retrieve all feature flags in the system"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/featureflags"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": \"beta_dashboard\",\n    \"enabled\": true,\n    \"description\": \"Enable access to the new dashboard\"\n  },\n  {\n    \"id\": \"live_chat\",\n    \"enabled\": false,\n    \"description\": \"Enable live chat support for users\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create Feature Flag",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"new_feature\",\n  \"enabled\": false,\n  \"description\": \"Description of the new feature\"\n}"
+            },
+            "url": "{{base_url}}/featureflags",
+            "description": "Create a new feature flag"
+          },
+          "response": [
+            {
+              "name": "Created Successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"new_feature\",\n  \"enabled\": false,\n  \"description\": \"Description of the new feature\"\n}"
+                },
+                "url": "{{base_url}}/featureflags"
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "{\n  \"id\": \"new_feature\",\n  \"enabled\": false,\n  \"description\": \"Description of the new feature\"\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"incomplete_flag\"\n}"
+                },
+                "url": "{{base_url}}/featureflags"
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "{\n  \"error\": \"Missing required fields: id, enabled, description\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Feature Flag by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/featureflags/{{flag_id}}",
+            "description": "Get a specific feature flag by its ID"
+          },
+          "response": [
+            {
+              "name": "Flag Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/featureflags/beta_dashboard"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "{\n  \"id\": \"beta_dashboard\",\n  \"enabled\": true,\n  \"description\": \"Enable access to the new dashboard\"\n}"
+            },
+            {
+              "name": "Flag Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/featureflags/nonexistent_flag"
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "{\n  \"error\": \"Feature flag not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Feature Flag",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/featureflags/{{flag_id}}",
+            "description": "Delete a feature flag by its ID"
+          },
+          "response": [
+            {
+              "name": "Deleted Successfully",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/featureflags/beta_dashboard"
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Feature Flag Controls",
+      "item": [
+        {
+          "name": "Enable Feature Flag",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/featureflags/{{flag_id}}/enable",
+            "description": "Enable a specific feature flag"
+          },
+          "response": [
+            {
+              "name": "Enabled Successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/featureflags/live_chat/enable"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "{\n  \"id\": \"live_chat\",\n  \"enabled\": true,\n  \"description\": \"Enable live chat support for users\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Disable Feature Flag",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/featureflags/{{flag_id}}/disable",
+            "description": "Disable a specific feature flag"
+          },
+          "response": [
+            {
+              "name": "Disabled Successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/featureflags/beta_dashboard/disable"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "{\n  \"id\": \"beta_dashboard\",\n  \"enabled\": false,\n  \"description\": \"Enable access to the new dashboard\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Enabled Feature Flags",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/featureflags/enabled",
+            "description": "Get all currently enabled feature flags"
+          },
+          "response": [
+            {
+              "name": "Enabled Flags",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/featureflags/enabled"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": \"beta_dashboard\",\n    \"enabled\": true,\n    \"description\": \"Enable access to the new dashboard\"\n  }\n]"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "flag_id",
+      "value": "beta_dashboard",
+      "type": "string"
+    }
+  ]
+}
