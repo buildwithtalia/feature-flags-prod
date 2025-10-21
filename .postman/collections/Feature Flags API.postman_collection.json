@@ -492,6 +492,58 @@
               "body": "[\n  {\n    \"id\": \"beta_dashboard\",\n    \"enabled\": true,\n    \"description\": \"Enable access to the new dashboard\"\n  }\n]"
             }
           ]
+        },
+        {
+          "name": "Update Enabled Feature Flags",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/featureflags/enabled",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "featureflags",
+                "enabled"
+              ]
+            },
+            "description": "Get all currently enabled feature flags"
+          },
+          "response": [
+            {
+              "name": "Enabled Flags",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/featureflags/enabled",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "featureflags",
+                    "enabled"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "body": "[\n  {\n    \"id\": \"beta_dashboard\",\n    \"enabled\": true,\n    \"description\": \"Enable access to the new dashboard\"\n  }\n]"
+            }
+          ]
         }
       ]
     }
