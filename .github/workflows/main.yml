@@ -1,0 +1,28 @@
+name: Notify Postman Flow on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  notify_postman:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send data to Postman Flow webhook
+        env:
+          POSTMAN_WEBHOOK_URL: "https://postman.flows.pstmn.io/api/default/github-slack-jira"
+        run: |
+          echo "Sending PR merge event to Postman Flow..."
+          curl -X POST "$POSTMAN_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"repo\": \"${{ github.repository }}\",
+              \"branch\": \"${{ github.ref_name }}\",
+              \"pr_number\": \"${{ github.event.pull_request.number }}\",
+              \"title\": \"${{ github.event.pull_request.title }}\",
+              \"merged_by\": \"${{ github.event.pull_request.merged_by.login }}\",
+              \"merged_at\": \"${{ github.event.pull_request.merged_at }}\",
+              \"url\": \"${{ github.event.pull_request.html_url }}\"
+            }"
