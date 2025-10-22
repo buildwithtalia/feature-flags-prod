@@ -101,13 +101,6 @@ def update_feature_flag_for_segment(flag_id):
     return jsonify(flag), 200
 
 
-@app.route('/featureflags/<flag_id>/disable', methods=['POST'])
-def disable_feature_flag(flag_id):
-    flag = get_flag(flag_id)
-    if not flag:
-        return jsonify({"error": "Feature flag not found"}), 404
-    flag['enabled'] = False
-    return jsonify(flag), 200
 
 @app.route('/featureflags/<flag_id>', methods=['GET'])
 def get_feature_flag_by_id(flag_id):
