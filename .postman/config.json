@@ -1,9 +1,11 @@
 {
   "workspace": {
-    "id": "f919b50e-73ae-43c2-9ac1-1255449c8ef6"
+    "id": ""
   },
   "entities": {
-    "collections": ["../postman/collections/Feature Flags API.postman_collection.json"],
+    "collections": [
+      "../postman/collections/Feature Flags API.postman_collection.json"
+    ],
     "environments": [],
     "specs": [],
     "flows": []
