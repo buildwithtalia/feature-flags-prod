@@ -76,6 +76,25 @@ def enable_feature_flag(flag_id):
     flag['enabled'] = True
     return jsonify(flag), 200
 
+@app.route('/featureflags/<flag_id>/enable_for_segment', methods=['POST'])
+def enable_feature_flag_for_segment(flag_id):
+    """
+    Enable a feature flag for a specific segment.
+    Request JSON should include: { "segment": "segment_name" }
+    """
+    data = request.get_json()
+    if not data or 'segment' not in data:
+        return jsonify({"error": "Missing required field: segment"}), 400
+    segment = data['segment']
+    flag = get_flag(flag_id)
+    if not flag:
+        return jsonify({"error": "Feature flag not found"}), 404
+    # Store segment-specific enablement
+    if flag_id not in segment_feature_flags:
+        segment_feature_flags[flag_id] = set()
+    segment_feature_flags[flag_id].add(segment)
+    return jsonify({"flag_id": flag_id, "segment": segment, "enabled": True}), 200
+
 @app.route('/featureflags/enabled', methods=['GET'])
 def get_enabled_feature_flags():
     """Get all enabled feature flags"""
