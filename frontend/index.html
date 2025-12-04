@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feature Flags Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🚩 Feature Flags Manager</h1>
+      <p class="subtitle">Manage your application feature flags</p>
+    </header>
+
+    <!-- Alert/Notification Area -->
+    <div id="alert" class="alert hidden"></div>
+
+    <!-- Create/Edit Form -->
+    <div class="card">
+      <h2 id="form-title">Create New Feature Flag</h2>
+      <form id="flag-form">
+        <input type="hidden" id="flag-id">
+        
+        <div class="form-group">
+          <label for="flag-name">Name *</label>
+          <input 
+            type="text" 
+            id="flag-name" 
+            placeholder="e.g., dark-mode, new-dashboard" 
+            required
+            pattern="[a-zA-Z0-9-_]+"
+            title="Only letters, numbers, hyphens, and underscores allowed"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="flag-description">Description</label>
+          <textarea 
+            id="flag-description" 
+            placeholder="Describe what this feature flag controls"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="flag-enabled">
+            <span>Enabled</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="flag-rules">Rules (JSON array, optional)</label>
+          <textarea 
+            id="flag-rules" 
+            placeholder='[{"type": "user_percentage", "value": 50}]'
+            rows="3"
+          ></textarea>
+          <small class="help-text">Enter a valid JSON array or leave empty</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            Create Flag
+          </button>
+          <button type="button" class="btn btn-secondary" id="cancel-btn">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Flags List -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Feature Flags</h2>
+        <div class="stats">
+          <span id="total-flags">0</span> flags
+          (<span id="enabled-flags">0</span> enabled)
+        </div>
+      </div>
+
+      <div id="loading" class="loading">Loading feature flags...</div>
+      <div id="error-message" class="error-message hidden"></div>
+      <div id="empty-state" class="empty-state hidden">
+        <p>No feature flags yet. Create your first one above!</p>
+      </div>
+
+      <div id="flags-container" class="flags-list"></div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Confirm Delete</h3>
+      <p>Are you sure you want to delete the feature flag "<span id="delete-flag-name"></span>"?</p>
+      <p class="warning">This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-danger" id="confirm-delete">Delete</button>
+        <button class="btn btn-secondary" id="cancel-delete">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

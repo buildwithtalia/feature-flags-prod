@@ -1,0 +1,113 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "type": "action-request",
+      "config": {}
+    },
+    {
+      "id": "route",
+      "type": "condition",
+      "config": {
+        "title": "Route by path and method",
+        "language": "typescript",
+        "expressions": [
+          { "id": "list", "title": "GET /mcp/feature-flags", "expression": "params.path === '/mcp/feature-flags' && params.method === 'GET'" },
+          { "id": "getById", "title": "GET /mcp/feature-flags/:id", "expression": "params.path?.startsWith('/mcp/feature-flags/') && params.method === 'GET'" },
+          { "id": "create", "title": "POST /mcp/feature-flags", "expression": "params.path === '/mcp/feature-flags' && params.method === 'POST'" }
+        ],
+        "blockVariables": [
+          { "name": "headers", "type": "port", "path": "" },
+          { "name": "params", "type": "port", "path": "" },
+          { "name": "body", "type": "port", "path": "" }
+        ]
+      }
+    },
+    {
+      "id": "list-http",
+      "type": "http-request",
+      "config": {
+        "title": "List feature flags",
+        "request": "curl -s -X GET '{{baseUrl}}/featureflags'",
+        "blockVariables": [
+          { "name": "baseUrl", "type": "env", "envId": "NEW_ID:baseUrl" }
+        ]
+      }
+    },
+    {
+      "id": "get-http",
+      "type": "http-request",
+      "config": {
+        "title": "Get feature flag by id",
+        "request": "curl -s -X GET '{{baseUrl}}/featureflags/{{flag_id}}'",
+        "blockVariables": [
+          { "name": "baseUrl", "type": "env", "envId": "NEW_ID:baseUrl" },
+          { "name": "flag_id", "type": "port", "path": "" }
+        ]
+      }
+    },
+    {
+      "id": "create-http",
+      "type": "http-request",
+      "config": {
+        "title": "Create feature flag",
+        "request": "curl -s -X POST '{{baseUrl}}/featureflags' -H 'Content-Type: application/json' -d '{{body}}'",
+        "blockVariables": [
+          { "name": "baseUrl", "type": "env", "envId": "NEW_ID:baseUrl" },
+          { "name": "body", "type": "port", "path": "" }
+        ]
+      }
+    },
+    {
+      "id": "extract-id",
+      "type": "evaluate-expression",
+      "config": {
+        "title": "Extract ID from path",
+        "language": "typescript",
+        "expression": "const parts = params.path.split('/'); parts[parts.length-1]",
+        "blockVariables": [
+          { "name": "params", "type": "port", "path": "" }
+        ]
+      }
+    },
+    {
+      "id": "res-list",
+      "type": "action-response",
+      "config": { "status": 200, "body": { "name": "body", "type": "port", "path": "body" } }
+    },
+    {
+      "id": "res-get",
+      "type": "action-response",
+      "config": { "status": 200, "body": { "name": "body", "type": "port", "path": "body" } }
+    },
+    {
+      "id": "res-create",
+      "type": "action-response",
+      "config": { "status": 201, "body": { "name": "body", "type": "port", "path": "body" } }
+    }
+  ],
+  "connections": [
+    { "source": "start", "target": "route", "sourcePort": "params", "targetPort": "params" },
+    { "source": "start", "target": "route", "sourcePort": "headers", "targetPort": "headers" },
+    { "source": "start", "target": "route", "sourcePort": "body", "targetPort": "body" },
+
+    { "source": "route", "target": "list-http", "sourcePort": "list", "targetPort": "__trigger__" },
+    { "source": "list-http", "target": "res-list", "sourcePort": "success", "targetPort": "body" },
+
+    { "source": "route", "target": "extract-id", "sourcePort": "getById", "targetPort": "params" },
+    { "source": "extract-id", "target": "get-http", "sourcePort": "value", "targetPort": "flag_id" },
+    { "source": "get-http", "target": "res-get", "sourcePort": "success", "targetPort": "body" },
+
+    { "source": "route", "target": "create-http", "sourcePort": "create", "targetPort": "body" },
+    { "source": "create-http", "target": "res-create", "sourcePort": "success", "targetPort": "body" }
+  ],
+  "environment": [
+    {
+      "id": "NEW_ID:baseUrl",
+      "name": "baseUrl",
+      "description": "Base URL of the Feature Flags API (e.g., http://localhost:5000)",
+      "color": "blue",
+      "type": "string"
+    }
+  ]
+}

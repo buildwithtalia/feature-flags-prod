@@ -1,0 +1,958 @@
+{
+  "info": {
+    "_postman_id": "d8a1723b-d7ab-44a5-a449-e05e87247445",
+    "name": "Feature Flags Production APIs",
+    "description": "Complete API collection for the Feature Flags Production multi-service application including Flask APIs, Express backend, and Kafka-based Producer/Consumer services.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Feature Flags API (Flask)",
+      "item": [
+        {
+          "name": "List all feature flags",
+          "id": "93d9313b-d675-408d-a381-2c6afd5dbfe1",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3002/featureflags?enabled=",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags"
+              ],
+              "query": [
+                {
+                  "key": "enabled",
+                  "value": "",
+                  "description": "Optional filter for enabled flags"
+                }
+              ]
+            },
+            "description": "List all feature flags with optional filtering"
+          }
+        },
+        {
+          "name": "Create a new feature flag",
+          "id": "404fa8a3-9cbf-491e-bc63-fa6bae45842f",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"beta_dashboard\",\n  \"enabled\": true,\n  \"description\": \"Enable access to the new dashboard\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3002/featureflags",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags"
+              ]
+            },
+            "description": "Create a new feature flag"
+          }
+        },
+        {
+          "name": "Get a specific feature flag",
+          "id": "70e24cb5-1ac2-4472-baa6-3e989b228b5b",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3002/featureflags/:flag_id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags",
+                ":flag_id"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get a specific feature flag by ID"
+          }
+        },
+        {
+          "name": "Delete a feature flag",
+          "id": "329b6ab1-cf1c-42f7-9a69-1d3780ccd81c",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:3002/featureflags/:flag_id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags",
+                ":flag_id"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Delete a feature flag"
+          }
+        },
+        {
+          "name": "Enable a feature flag",
+          "id": "77ceb48f-5625-415b-905d-687664b8d332",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3002/featureflags/:flag_id/enable",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags",
+                ":flag_id",
+                "enable"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Enable a specific feature flag"
+          }
+        },
+        {
+          "name": "Disable a feature flag",
+          "id": "8980fc26-3793-4457-87b5-9248fd443ad5",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3002/featureflags/:flag_id/disable",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags",
+                ":flag_id",
+                "disable"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Disable a specific feature flag"
+          }
+        },
+        {
+          "name": "Enable flag for segment",
+          "id": "c292ae60-4c37-45a9-b4bd-c9b1ebaa03eb",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"segment\": \"premium_users\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3002/featureflags/:flag_id/enable_for_segment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags",
+                ":flag_id",
+                "enable_for_segment"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Enable a feature flag for a specific segment"
+          }
+        },
+        {
+          "name": "Get all enabled flags",
+          "id": "9cb1bc30-e326-4b60-859b-9480f2af512c",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3002/featureflags/enabled",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags",
+                "enabled"
+              ]
+            },
+            "description": "Get all enabled feature flags"
+          }
+        },
+        {
+          "name": "Update Enabled Feature Flag",
+          "id": "d0263131-15e6-43a0-8587-14a63281957f",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:3002/featureflags/:flag_id/enable",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "featureflags",
+                ":flag_id",
+                "enable"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Enable a specific feature flag"
+          }
+        }
+      ],
+      "id": "0b7769de-a54b-449a-8b50-f2a4689728de"
+    },
+    {
+      "name": "Feature Flags Backend (Express)",
+      "item": [
+        {
+          "name": "Health check",
+          "id": "1d391c65-aeb1-4376-a5d2-b8be5f723871",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3002/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Health check endpoint"
+          }
+        },
+        {
+          "name": "List all flags",
+          "id": "9aaf0e79-77bb-4241-9074-5bbe306654f3",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3002/api/flags",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "api",
+                "flags"
+              ]
+            },
+            "description": "List all feature flags"
+          }
+        },
+        {
+          "name": "Get flag by ID",
+          "id": "89628d15-21db-48d4-a2bd-7648b0b138f2",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3002/api/flags/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "api",
+                "flags",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get a specific flag by ID"
+          }
+        },
+        {
+          "name": "Create a flag",
+          "id": "bddb8e00-2d95-4c57-b7ef-5f99253ab209",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"dark-mode\",\n  \"description\": \"Enable dark mode theme\",\n  \"enabled\": false,\n  \"rules\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3002/api/flags",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "api",
+                "flags"
+              ]
+            },
+            "description": "Create a new feature flag"
+          }
+        },
+        {
+          "name": "Update a flag",
+          "id": "a2f79938-bc8c-4804-af77-21bb527dfd3d",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"dark-mode\",\n  \"description\": \"Enable dark mode theme\",\n  \"enabled\": true,\n  \"rules\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3002/api/flags/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "api",
+                "flags",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update an existing flag"
+          }
+        },
+        {
+          "name": "Delete a flag",
+          "id": "af2f9cfc-60ea-4794-b987-71078c29c37a",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:3002/api/flags/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "api",
+                "flags",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Delete a feature flag"
+          }
+        }
+      ],
+      "id": "c3cea7ec-0767-4635-a963-d1dbf08bfd5d"
+    },
+    {
+      "name": "Producer API (Kafka)",
+      "item": [
+        {
+          "name": "Health check",
+          "id": "4cbedcbe-2902-4b9e-add3-0775f43779bf",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Check producer service health"
+          }
+        },
+        {
+          "name": "Publish order event",
+          "id": "a123a9e1-6431-4813-9ee4-a7cfa5953e6d",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"user123\",\n  \"items\": [\"item1\", \"item2\"],\n  \"totalAmount\": 99.99,\n  \"shippingAddress\": {\n    \"street\": \"123 Main St\",\n    \"city\": \"San Francisco\",\n    \"state\": \"CA\",\n    \"zip\": \"94102\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/events/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "events",
+                "orders"
+              ]
+            },
+            "description": "Publish order events to Kafka"
+          }
+        },
+        {
+          "name": "Publish user event",
+          "id": "7096a672-32ca-4bad-9908-204a4cc00fbe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"preferences\": {\n    \"newsletter\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/events/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "events",
+                "users"
+              ]
+            },
+            "description": "Publish user events to Kafka"
+          }
+        },
+        {
+          "name": "Publish notification event",
+          "id": "9eec205e-6337-460e-81cf-0d1de7749c51",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"email\",\n  \"recipient\": \"user@example.com\",\n  \"message\": \"Your order has been shipped\",\n  \"metadata\": {\n    \"orderId\": \"order123\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/events/notifications",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "events",
+                "notifications"
+              ]
+            },
+            "description": "Publish notification events to Kafka"
+          }
+        },
+        {
+          "name": "Publish payment event",
+          "id": "709b5f64-3fd4-44f0-ae9d-a605ad5d4a07",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"order123\",\n  \"amount\": 99.99,\n  \"paymentMethod\": \"credit_card\",\n  \"status\": \"completed\",\n  \"transactionId\": \"txn_abc123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/events/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "events",
+                "payments"
+              ]
+            },
+            "description": "Publish payment events to Kafka"
+          }
+        },
+        {
+          "name": "Publish batch events",
+          "id": "3cf2ea28-d15d-4bc1-8a00-fea414d66115",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\n    {\n      \"type\": \"order\",\n      \"data\": {\n        \"userId\": \"user123\",\n        \"items\": [\"item1\"],\n        \"totalAmount\": 49.99\n      }\n    },\n    {\n      \"type\": \"notification\",\n      \"data\": {\n        \"type\": \"email\",\n        \"recipient\": \"user@example.com\",\n        \"message\": \"Order confirmed\"\n      }\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/events/batch",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "events",
+                "batch"
+              ]
+            },
+            "description": "Publish multiple events at once"
+          }
+        }
+      ],
+      "id": "aae9151c-7a5c-4cd2-987a-15a783d1b052"
+    },
+    {
+      "name": "Consumer API (Kafka)",
+      "item": [
+        {
+          "name": "Health check",
+          "id": "5e9bd329-367d-4b18-9fcf-d0f0230aa0bf",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Check consumer service health"
+          }
+        },
+        {
+          "name": "Get consumer statistics",
+          "id": "af138444-1696-41dd-bac5-bfaa0ce94ebf",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/stats",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "api",
+                "stats"
+              ]
+            },
+            "description": "Get consumer statistics"
+          }
+        },
+        {
+          "name": "Get consumer groups",
+          "id": "c8e5304e-f977-413c-9ab0-9687440eefff",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/consumer-groups",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "api",
+                "consumer-groups"
+              ]
+            },
+            "description": "Get consumer group information"
+          }
+        },
+        {
+          "name": "Pause consumption",
+          "id": "09e98bc5-3104-4ef0-970e-d198975bdb0c",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/consumer/pause",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "api",
+                "consumer",
+                "pause"
+              ]
+            },
+            "description": "Pause message consumption"
+          }
+        },
+        {
+          "name": "Resume consumption",
+          "id": "7e124ecb-db9a-4938-8935-8fcd57b1db52",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/consumer/resume",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "api",
+                "consumer",
+                "resume"
+              ]
+            },
+            "description": "Resume message consumption"
+          }
+        },
+        {
+          "name": "Reset statistics",
+          "id": "12b99d61-1f6e-4fcb-bd46-31f9da904982",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/stats/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "api",
+                "stats",
+                "reset"
+              ]
+            },
+            "description": "Reset statistics counters"
+          }
+        }
+      ],
+      "id": "23735f4b-d150-4587-aad4-bd52065f5a02"
+    },
+    {
+      "name": "Server API (Auth)",
+      "item": [
+        {
+          "name": "Health check",
+          "id": "6ec70923-1ad5-4d52-b66f-a68a64a6977b",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                ""
+              ]
+            },
+            "description": "Health check"
+          }
+        },
+        {
+          "name": "List all flags (authenticated)",
+          "id": "29608f0a-3352-49bf-8f2c-09f506b31a9d",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/featureflags?enabled=",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "featureflags"
+              ],
+              "query": [
+                {
+                  "key": "enabled",
+                  "value": "",
+                  "description": "Optional filter"
+                }
+              ]
+            },
+            "description": "List all feature flags (authenticated)"
+          }
+        },
+        {
+          "name": "Create flag (authenticated)",
+          "id": "0805c090-8dd5-4122-8083-d572bce0c661",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"new_feature\",\n  \"enabled\": true,\n  \"description\": \"New feature flag\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/featureflags",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "featureflags"
+              ]
+            },
+            "description": "Create a new feature flag (authenticated)"
+          }
+        },
+        {
+          "name": "Get flag by ID (authenticated)",
+          "id": "60787b04-488a-4222-9614-e6184a0b18c3",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/featureflags/:flag_id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "featureflags",
+                ":flag_id"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get a specific feature flag (authenticated)"
+          }
+        },
+        {
+          "name": "Delete flag (authenticated)",
+          "id": "754f67b3-7cb5-47b2-b5ff-d987d89a3b79",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/featureflags/:flag_id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "featureflags",
+                ":flag_id"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Delete/disable a feature flag (authenticated)"
+          }
+        },
+        {
+          "name": "Enable flag (authenticated)",
+          "id": "e48300ad-ec69-4d7d-ab8b-e96d402b47aa",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/featureflags/:flag_id/enable",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "featureflags",
+                ":flag_id",
+                "enable"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Enable a feature flag (authenticated)"
+          }
+        },
+        {
+          "name": "Disable flag (authenticated)",
+          "id": "c8509224-800d-45ee-abdb-e52cb8a2dcde",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/featureflags/:flag_id/disable",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "featureflags",
+                ":flag_id",
+                "disable"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Disable a feature flag (authenticated)"
+          }
+        },
+        {
+          "name": "Enable for segment (authenticated)",
+          "id": "d600bfc4-4d6c-4ec9-a352-6d12dd665220",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"segment\": \"beta_testers\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/featureflags/:flag_id/enable_for_segment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "featureflags",
+                ":flag_id",
+                "enable_for_segment"
+              ],
+              "variable": [
+                {
+                  "key": "flag_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Enable flag for a specific segment (authenticated)"
+          }
+        }
+      ],
+      "id": "6f73dbc2-882d-402f-b64e-106e6136fbd6"
+    }
+  ]
+}
