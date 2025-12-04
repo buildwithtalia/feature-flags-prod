@@ -1,13 +1,37 @@
 {
-  "name": "feature-flags-api-server",
+  "name": "kafka-event-driven-app",
   "version": "1.0.0",
-  "description": "Backend server for Feature Flag API (in-memory)",
-  "main": "server.js",
+  "description": "Event-driven application using Apache Kafka",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "producer": "node producer/index.js",
+    "consumer": "node consumer/index.js",
+    "consumer:orders": "node consumer/orderConsumer.js",
+    "consumer:users": "node consumer/userConsumer.js",
+    "test:producer": "node producer/testProducer.js",
+    "dev:producer": "nodemon producer/index.js",
+    "dev:consumer": "nodemon consumer/index.js",
+    "start:producer-api": "node producer/api.js",
+    "start:consumer-api": "node consumer/api.js",
+    "dev:producer-api": "nodemon producer/api.js",
+    "dev:consumer-api": "nodemon consumer/api.js"
   },
+  "keywords": [
+    "kafka",
+    "event-driven",
+    "microservices",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "uuid": "^9.0.0"
+    "kafkajs": "^2.2.4",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

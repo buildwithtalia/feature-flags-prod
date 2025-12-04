@@ -1,0 +1,43 @@
+[
+  {
+    "id": "5c75e012-ce0f-404c-805e-db546794be74",
+    "name": "dark-mode",
+    "description": "Enable dark mode theme",
+    "enabled": true,
+    "createdAt": "2025-11-20T22:27:31.130Z",
+    "updatedAt": "2025-11-20T22:27:31.130Z",
+    "rules": []
+  },
+  {
+    "id": "b97951a4-3e06-4a66-ab8d-28453550bc3e",
+    "name": "new-dashboard",
+    "description": "Show new dashboard UI",
+    "enabled": false,
+    "createdAt": "2025-11-20T22:27:31.130Z",
+    "updatedAt": "2025-11-20T22:27:31.130Z",
+    "rules": [
+      {
+        "type": "user_percentage",
+        "value": 25
+      }
+    ]
+  },
+  {
+    "id": "e897f116-72c7-4f3e-9529-86b3b66dc512",
+    "name": "cta-test",
+    "description": "new CTA for home page button",
+    "enabled": true,
+    "createdAt": "2025-11-20T22:34:45.587Z",
+    "updatedAt": "2025-11-20T22:34:45.587Z",
+    "rules": []
+  },
+  {
+    "id": "ef1c688c-fca1-4f38-9559-c699741a1e02",
+    "name": "new_feature_10",
+    "description": "this is for a new feature",
+    "enabled": false,
+    "createdAt": "2025-11-20T22:39:28.737Z",
+    "updatedAt": "2025-11-20T22:39:28.737Z",
+    "rules": []
+  }
+]

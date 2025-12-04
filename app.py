@@ -34,7 +34,14 @@ segment_feature_flags = {}
 
 @app.route('/featureflags', methods=['GET'])
 def list_feature_flags():
-    return jsonify(list(feature_flags.values())), 200
+    enabled_param = request.args.get('enabled')
+    flags = list(feature_flags.values())
+    if enabled_param is not None:
+        if enabled_param.lower() in ('true', '1', 'yes'):
+            flags = [f for f in flags if f.get('enabled', False)]
+        elif enabled_param.lower() in ('false', '0', 'no'):
+            flags = [f for f in flags if not f.get('enabled', False)]
+    return jsonify(flags), 200
 
 @app.route('/featureflags', methods=['POST'])
 def create_feature_flag():
@@ -76,6 +83,15 @@ def enable_feature_flag(flag_id):
     flag['enabled'] = True
     return jsonify(flag), 200
 
+@app.route('/featureflags/<flag_id>/disable', methods=['POST'])
+def disable_feature_flag(flag_id):
+    flag = get_flag(flag_id)
+
+    if not flag:
+        return jsonify({"error": "Feature flag not found"}), 404
+    flag['enabled'] = False
+    return jsonify(flag), 200
+
 @app.route('/featureflags/<flag_id>/enable_for_segment', methods=['POST'])
 def enable_feature_flag_for_segment(flag_id):
     """
@@ -110,4 +126,5 @@ def get_feature_flag_by_id(flag_id):
     return jsonify(flag), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Match collection's baseUrl default of http://localhost:3002
+    app.run(debug=True, port=3002)
